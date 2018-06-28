@@ -14,7 +14,7 @@ class Main extends PluginBase {
     public function onEnable() {
         $this->getServer()->getPluginManager()->registerInterface(new AllPharPluginLoader($this->getServer()->getLoader()));
       
-        $this->getServer()->getPluginManager()->registerInterface(new AllScriptPluginLoader());
+        $this->getServer()->getPluginManager()->registerInterface(new AllScriptPluginLoader($this->getServer()->getLoader()));
       
         if ($this->getServer()->getPluginManager()->getPlugin("DevTools") instanceof Plugin or $this->getServer()->getPluginManager()->getPlugin("FolderPluginLoader") instanceof Plugin)
             $this->getServer()->getPluginManager()->registerInterface(new AllFolderPluginLoader($this->getServer()->getLoader()));
