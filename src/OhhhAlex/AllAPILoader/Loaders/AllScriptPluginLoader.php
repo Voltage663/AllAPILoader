@@ -12,7 +12,7 @@ class AllScriptPluginLoader extends ScriptPluginLoader {
 
     /** @var \ClassLoader */
 	private $loader;
-	public function __construct($loader){
+	public function __construct(\ClassLoader $loader){
 		$this->loader = $loader;
        }
        public function canLoadPlugin(string $path) : bool{
