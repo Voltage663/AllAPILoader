@@ -12,7 +12,7 @@ use OhhhAlex\AllAPILoader\Loaders\AllScriptPluginLoader;
 class Main extends PluginBase {
   
     public function onEnable() {
-        $this->getServer()->getPluginManager()->registerInterface(new AllPharPluginLoader($this->autoloader));
+        $this->getServer()->getPluginManager()->registerInterface(new AllPharPluginLoader($this->getServer()->getLoader()));
       
         $this->getServer()->getPluginManager()->registerInterface(new AllScriptPluginLoader());
       
