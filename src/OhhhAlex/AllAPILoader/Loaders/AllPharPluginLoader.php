@@ -4,33 +4,46 @@ namespace OhhhAlex\AllAPILoader\Loaders;
 
 use pocketmine\plugin\PharPluginLoader;
 use pocketmine\plugin\Plugin;
+use pocketmine\plugin\PluginException;
 use pocketmine\plugin\PluginDescription;
 use pocketmine\Server;
 
 class AllPharPluginLoader extends PharPluginLoader {
 
-    private $server;
+    /** @var \ClassLoader */
+	private $loader;
+	public function __construct(\ClassLoader $loader){
+		$this->loader = $loader;
+       }
+       public function canLoadPlugin(string $path) : bool{
+		return is_dir($path) and file_exists($path . "/plugin.yml") and file_exists($path . "/src/");
+	}
+	/**
+	 * Loads the plugin contained in $file
+	 *
+	 * @param string $file
+	 */
+	public function loadPlugin(string $file) : void{
+		$this->loader->addPath("$file/src");
+	}
 
-    public function __construct(Server $server) {
-        parent::__construct($server);
-        $this->server = $server;
-    }
-
-    public function getPluginDescription(string $file) {
-        $phar = new \Phar($file);
-        if (isset($phar["plugin.yml"])) {
-            $pluginYml = $phar["plugin.yml"];
-            if ($pluginYml instanceof \PharFileInfo) {
-                $description = new PluginDescription($pluginYml->getContent());
-                if (!$this->server->getPluginManager()->getPlugin($description->getName()) instanceof Plugin and !in_array($this->server->getApiVersion(), $description->getCompatibleApis())) {
-                    $api = (new \ReflectionClass("pocketmine\plugin\PluginDescription"))->getProperty("api");
-                    $api->setAccessible(true);
-                    $api->setValue($description, [$this->server->getApiVersion()]);
-                    return $description;
-                }
-            }
-        }
-
-        return null;
-    }
+    /**
+	 * Gets the PluginDescription from the file
+	 *
+	 * @param string $file
+	 *
+	 * @return null|PluginDescription
+	 */
+	public function getPluginDescription(string $file) : ?PluginDescription{
+		if(is_dir($file) and file_exists($file . "/plugin.yml")){
+			$yaml = @file_get_contents($file . "/plugin.yml");
+			if($yaml != ""){
+				return new PluginDescription($yaml);
+			}
+		}
+		return null;
+	}
+	public function getAccessProtocol() : string{
+		return "";
+	}
 }
