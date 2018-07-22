@@ -2,10 +2,6 @@
 This plugin allows your server to load every plugin regardless of the plugin's API version.  
 To load folder plugins DevTools or FolderPluginLoader are needed.
 
-# PATCHED FOR ALPHA-11 & ALPHA-12
-
-Please update your DevTools if you are using ALPHA-11 - ALPHA12
-
-Anyone can use this plugin :) All Credits go to the creator/author of the plugin.
-
-For the author, please SEE plugin.yml
+## DISCONTINUED TEMPOIRARILY
+We'd like to thank every one of you for using AllAPILoader. As from this developer writing this, I, the person who has tried updating this, will no longer be updating as of 07/22/2018. I will make a huge update regarding this plugin very soon (once everything's stabalized again).
+Sorry for any inconviences.
